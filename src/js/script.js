@@ -1,3 +1,4 @@
+/* eslint no-undef: 0 */
 
 var gameScene
 var player
@@ -68,7 +69,7 @@ function setup () {
 function play () {
   // Speed up the game gradually
   speed = speed * 1.000001
-  document.getElementById('debug').innerHTML = wobble
+  document.getElementById('debug').innerHTML = JSON.stringify(wobble)
 
   g.move(player)
   g.contain(player, g.stage.localBounds)
@@ -107,10 +108,17 @@ function play () {
 
     // Check for collision between potion and player
     if (g.hitTestRectangle(player, p)) {
+      if (wobble) {
+        g.tweens = []
+        wobble.tweens = []
+        player.scaleX = 1
+        player.scaleY = 1
+      }
       wobble = g.wobble(player, 1.2, 1.2, 10, 10, 10, -10, -10, 0.9, true)
 
       // Create particles
       particles(p, 'dodgerblue', 20)
+      playBubbles()
       // Update healthbar
       if (player.inner.height + potionHealth <= 32) {
         player.inner.y -= potionHealth
@@ -174,4 +182,10 @@ function particles (element, color, amount) {
     0.005, 0.01, // Min/max alpha speed
     0.05, 0.1 // Min/max rotation speed
   )
+}
+
+function playBubbles () {
+  g.soundEffect(0, 0.05, 0.05, 'sine', 1, 0, 0, 1000, true, 1000)
+  g.soundEffect(250, 0.05, 0.05, 'sine', 1, 0, 0.05, 1000, true, 1000)
+  g.soundEffect(500, 0.05, 0.05, 'sine', 1, 0, 0.1, 1000, true, 500)
 }
