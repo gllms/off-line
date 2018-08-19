@@ -13,7 +13,6 @@ const replaceHTML = require('gulp-html-replace');
 const imagemin = require('gulp-imagemin');
 const zip = require('gulp-zip');
 const checkFileSize = require('gulp-check-filesize');
-const liveServer = require("live-server");
 
 const paths = {
     src: {
@@ -117,10 +116,6 @@ gulp.task('watch', () => {
     gulp.watch(paths.src.js, gulp.series('buildJS', 'zip'));
     gulp.watch(paths.src.images, gulp.series('optimizeImages', 'zip'));
 });
-
-gulp.task('serve', () => {
-    liveServer.start({ root: './dist' })
-})
 
 gulp.task('default', gulp.series(
     'build',

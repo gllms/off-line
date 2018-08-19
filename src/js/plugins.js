@@ -1,4 +1,4 @@
-// player.vy = 0;
+/* eslint-disable */
 // ==ClosureCompiler==
 // @output_file_name default.js
 // @compilation_level SIMPLE_OPTIMIZATIONS
@@ -1053,255 +1053,255 @@ GA.plugins = function (ga) {
   //   }
   // };
 
-  // /*
-  // Chapter 2: The tweening module
-  // ---------------------------------------------------------
+  /*
+  Chapter 2: The tweening module
+  ---------------------------------------------------------
 
-  // Ga has some special tween functions to help you manage scene transitions
-  // or to make sprites move in a fixed or repeating way:
+  Ga has some special tween functions to help you manage scene transitions
+  or to make sprites move in a fixed or repeating way:
 
-  //     `slide`: Make a sprite slide from one x/y position to another.
-  //     `fadeIn`: Fade a sprite in.
-  //     `fadeOut`: Fade a sprite out.
-  //     `pulse`: Make a sprite fade in and out in a loop.
-  //     `scale`: Smoothly change the scale of a sprite.
-  //     `breathe`: A breathing effect that changes the sprite's scale in a loop.
-  //     `strobe`: A psychedelic flashing scale effect.
-  //     `wobble`: Make a sprite wobble like a plate of jelly.
+      `slide`: Make a sprite slide from one x/y position to another.
+      `fadeIn`: Fade a sprite in.
+      `fadeOut`: Fade a sprite out.
+      `pulse`: Make a sprite fade in and out in a loop.
+      `scale`: Smoothly change the scale of a sprite.
+      `breathe`: A breathing effect that changes the sprite's scale in a loop.
+      `strobe`: A psychedelic flashing scale effect.
+      `wobble`: Make a sprite wobble like a plate of jelly.
 
-  // All these methods return a `tween` object. You
-  // attach an `onComplete` method to the `tween` object to do something
-  // when the tween has finished. It also has a Boolean `playing`
-  // property that tells you whether or not the tween is playing. Use
-  // `tween.pause()` and `tween.play()` to pause and play the tweens at
-  // any time. You can completely remove a tween with
-  // `ga.removeTween(tweenObject)`.
+  All these methods return a `tween` object. You
+  attach an `onComplete` method to the `tween` object to do something
+  when the tween has finished. It also has a Boolean `playing`
+  property that tells you whether or not the tween is playing. Use
+  `tween.pause()` and `tween.play()` to pause and play the tweens at
+  any time. You can completely remove a tween with
+  `ga.removeTween(tweenObject)`.
 
-  // Most of these methods have a `yoyo` Boolean argument that, if `true`,
-  // will make the sprite bounce back and
-  // forth between its start and end points, forever. You can supply an
-  // optional `delay` argument that defines how long, in milliseconds, the
-  // tween should hold its position until it bounces back again. 
+  Most of these methods have a `yoyo` Boolean argument that, if `true`,
+  will make the sprite bounce back and
+  forth between its start and end points, forever. You can supply an
+  optional `delay` argument that defines how long, in milliseconds, the
+  tween should hold its position until it bounces back again. 
 
-  // All of these special tweens are managed in Ga's `tweens` array. Ga's game loop
-  // calls each tween object's `update` function each frame.
+  All of these special tweens are managed in Ga's `tweens` array. Ga's game loop
+  calls each tween object's `update` function each frame.
 
-  // See the `scenesAndTweening` and `tweening.html` file in the `examples` folder for a demonstration of how
-  // to use these tweening methods.
+  See the `scenesAndTweening` and `tweening.html` file in the `examples` folder for a demonstration of how
+  to use these tweening methods.
 
-  // */
+  */
 
-  // /*
-  // ###tweens
-  // An array to store all the tweens in the game
-  // */
+  /*
+  ###tweens
+  An array to store all the tweens in the game
+  */
 
-  // ga.tweens = [];
+  ga.tweens = [];
 
-  // /*
-  // ###updateTweens
-  // `updateTweens` loops through all the sprites in `ga.particles`
-  // and runs their `updateParticles` functions.
-  // */
+  /*
+  ###updateTweens
+  `updateTweens` loops through all the sprites in `ga.particles`
+  and runs their `updateParticles` functions.
+  */
 
-  // ga.updateTweens = function () {
+  ga.updateTweens = function () {
 
-  //   //Update all the particles in the game.
-  //   if (ga.tweens.length > 0) {
-  //     for (var i = ga.tweens.length - 1; i >= 0; i--) {
-  //       var tween = ga.tweens[i];
-  //       if (tween) tween.update();
-  //     }
-  //   }
-  // }
+    //Update all the particles in the game.
+    if (ga.tweens.length > 0) {
+      for (var i = ga.tweens.length - 1; i >= 0; i--) {
+        var tween = ga.tweens[i];
+        if (tween) tween.update();
+      }
+    }
+  }
 
-  // //Push `updateTweens` into the `ga.updateFunctions` array so that
-  // //it runs inside Ga's game loop. (See the `ga.update` method in the 
-  // //`ga.js` file to see how this works.
-  // ga.updateFunctions.push(ga.updateTweens);
+  //Push `updateTweens` into the `ga.updateFunctions` array so that
+  //it runs inside Ga's game loop. (See the `ga.update` method in the 
+  //`ga.js` file to see how this works.
+  ga.updateFunctions.push(ga.updateTweens);
 
-  // //###Easing functions
-  // //These are low-level functions that you won't use directly.
-  // //Instead, their used by the higher-level tweening functions.
+  //###Easing functions
+  //These are low-level functions that you won't use directly.
+  //Instead, their used by the higher-level tweening functions.
 
-  // //Bezier curve
-  // ga.cubicBezier = function (t, a, b, c, d) {
-  //   var t2 = t * t;
-  //   var t3 = t2 * t;
-  //   return a
-  //     + (-a * 3 + t * (3 * a - a * t)) * t
-  //     + (3 * b + t * (-6 * b + b * 3 * t)) * t
-  //     + (c * 3 - c * 3 * t) * t2 + d * t3;
-  // }
+  //Bezier curve
+  ga.cubicBezier = function (t, a, b, c, d) {
+    var t2 = t * t;
+    var t3 = t2 * t;
+    return a
+      + (-a * 3 + t * (3 * a - a * t)) * t
+      + (3 * b + t * (-6 * b + b * 3 * t)) * t
+      + (c * 3 - c * 3 * t) * t2 + d * t3;
+  }
 
-  // //The `ease` object. It stores all the easing functions
-  // var ease = {
+  //The `ease` object. It stores all the easing functions
+  var ease = {
 
-  //   //Linear
-  //   linear: function (x) { return x; },
+    //Linear
+    linear: function (x) { return x; },
 
-  //   //Smoothstep
-  //   smoothstep: function (x) { return x * x * (3 - 2 * x); },
-  //   smoothstepSquared: function (x) { return Math.pow((x * x * (3 - 2 * x)), 2); },
-  //   smoothstepCubed: function (x) { return Math.pow((x * x * (3 - 2 * x)), 3); },
+    //Smoothstep
+    smoothstep: function (x) { return x * x * (3 - 2 * x); },
+    smoothstepSquared: function (x) { return Math.pow((x * x * (3 - 2 * x)), 2); },
+    smoothstepCubed: function (x) { return Math.pow((x * x * (3 - 2 * x)), 3); },
 
-  //   //Acceleration
-  //   acceleration: function (x) { return x * x; },
-  //   accelerationCubed: function (x) { return Math.pow(x * x, 3); },
+    //Acceleration
+    acceleration: function (x) { return x * x; },
+    accelerationCubed: function (x) { return Math.pow(x * x, 3); },
 
-  //   //Deceleration
-  //   deceleration: function (x) { return 1 - Math.pow(1 - x, 2); },
-  //   decelerationCubed: function (x) { return 1 - Math.pow(1 - x, 3); },
+    //Deceleration
+    deceleration: function (x) { return 1 - Math.pow(1 - x, 2); },
+    decelerationCubed: function (x) { return 1 - Math.pow(1 - x, 3); },
 
-  //   //Sine
-  //   sine: function (x) { return Math.sin(x * Math.PI / 2); },
-  //   sineSquared: function (x) { return Math.pow(Math.sin(x * Math.PI / 2), 2); },
-  //   sineCubed: function (x) { return Math.pow(Math.sin(x * Math.PI / 2), 2); },
-  //   inverseSine: function (x) { return 1 - Math.sin((1 - x) * Math.PI / 2); },
-  //   inverseSineSquared: function (x) { return 1 - Math.pow(Math.sin((1 - x) * Math.PI / 2), 2); },
-  //   inverseSineCubed: function (x) { return 1 - Math.pow(Math.sin((1 - x) * Math.PI / 2), 3); },
+    //Sine
+    sine: function (x) { return Math.sin(x * Math.PI / 2); },
+    sineSquared: function (x) { return Math.pow(Math.sin(x * Math.PI / 2), 2); },
+    sineCubed: function (x) { return Math.pow(Math.sin(x * Math.PI / 2), 2); },
+    inverseSine: function (x) { return 1 - Math.sin((1 - x) * Math.PI / 2); },
+    inverseSineSquared: function (x) { return 1 - Math.pow(Math.sin((1 - x) * Math.PI / 2), 2); },
+    inverseSineCubed: function (x) { return 1 - Math.pow(Math.sin((1 - x) * Math.PI / 2), 3); },
 
-  //   //Spline
-  //   spline: function (t, p0, p1, p2, p3) {
-  //     return 0.5 * (
-  //       (2 * p1) +
-  //       (-p0 + p2) * t +
-  //       (2 * p0 - 5 * p1 + 4 * p2 - p3) * t * t +
-  //       (-p0 + 3 * p1 - 3 * p2 + p3) * t * t * t
-  //     );
-  //   }
-  // };
+    //Spline
+    spline: function (t, p0, p1, p2, p3) {
+      return 0.5 * (
+        (2 * p1) +
+        (-p0 + p2) * t +
+        (2 * p0 - 5 * p1 + 4 * p2 - p3) * t * t +
+        (-p0 + 3 * p1 - 3 * p2 + p3) * t * t * t
+      );
+    }
+  };
 
-  // //###`tweenProperty`
-  // //A low-level function that you can use to tween any sprite
-  // //property. It's used by all the higher-level tween functions,
-  // //but you can use it to create your own custom tween effects.
+  //###`tweenProperty`
+  //A low-level function that you can use to tween any sprite
+  //property. It's used by all the higher-level tween functions,
+  //but you can use it to create your own custom tween effects.
 
-  // ga.tweenProperty = function (
-  //   sprite,                  //Sprite object
-  //   property,                //String property
-  //   startValue,              //Tween start value
-  //   endValue,                //Tween end value
-  //   totalFrames,             //Duration in frames
-  //   type,                    //The easing type
-  //   yoyo,                    //Yoyo?
-  //   delayBeforeRepeat        //Delay in milliseconds before repeating
-  // ) {
+  ga.tweenProperty = function (
+    sprite,                  //Sprite object
+    property,                //String property
+    startValue,              //Tween start value
+    endValue,                //Tween end value
+    totalFrames,             //Duration in frames
+    type,                    //The easing type
+    yoyo,                    //Yoyo?
+    delayBeforeRepeat        //Delay in milliseconds before repeating
+  ) {
 
-  //   //Set defaults
-  //   if (totalFrames === undefined) totalFrames = 60;
-  //   if (type === undefined) type = "smoothstep";
-  //   if (yoyo === undefined) yoyo = false;
-  //   if (delayBeforeRepeat === undefined) delayBeforeRepeat = 0;
+    //Set defaults
+    if (totalFrames === undefined) totalFrames = 60;
+    if (type === undefined) type = "smoothstep";
+    if (yoyo === undefined) yoyo = false;
+    if (delayBeforeRepeat === undefined) delayBeforeRepeat = 0;
 
-  //   //Create the tween object
-  //   var o = {};
+    //Create the tween object
+    var o = {};
 
-  //   //If the tween is a bounce type (a spline), set the
-  //   //start and end magnitude values
-  //   var typeArray = type.split(" ");
-  //   if (typeArray[0] === "bounce") {
-  //     o.startMagnitude = parseInt(typeArray[1]);
-  //     o.endMagnitude = parseInt(typeArray[2]);
-  //   }
+    //If the tween is a bounce type (a spline), set the
+    //start and end magnitude values
+    var typeArray = type.split(" ");
+    if (typeArray[0] === "bounce") {
+      o.startMagnitude = parseInt(typeArray[1]);
+      o.endMagnitude = parseInt(typeArray[2]);
+    }
 
-  //   //Use `o.start` to make a new tween using the current
-  //   //end point values
-  //   o.start = function (startValue, endValue) {
+    //Use `o.start` to make a new tween using the current
+    //end point values
+    o.start = function (startValue, endValue) {
 
-  //     //Clone the start and end values so that any possible references to sprite
-  //     //properties are converted to ordinary numbers 
-  //     o.startValue = JSON.parse(JSON.stringify(startValue));
-  //     o.endValue = JSON.parse(JSON.stringify(endValue));
-  //     o.playing = true;
-  //     o.totalFrames = totalFrames;
-  //     o.frameCounter = 0;
+      //Clone the start and end values so that any possible references to sprite
+      //properties are converted to ordinary numbers 
+      o.startValue = JSON.parse(JSON.stringify(startValue));
+      o.endValue = JSON.parse(JSON.stringify(endValue));
+      o.playing = true;
+      o.totalFrames = totalFrames;
+      o.frameCounter = 0;
 
-  //     //Add the tween to the global `tweens` array. The `tweens` array is
-  //     //updated on each frame
-  //     ga.tweens.push(o);
-  //   };
+      //Add the tween to the global `tweens` array. The `tweens` array is
+      //updated on each frame
+      ga.tweens.push(o);
+    };
 
-  //   //Call `o.start` to start the tween
-  //   o.start(startValue, endValue);
+    //Call `o.start` to start the tween
+    o.start(startValue, endValue);
 
-  //   //The `update` method will be called on each frame by the game loop.
-  //   //This is what makes the tween move
-  //   o.update = function () {
+    //The `update` method will be called on each frame by the game loop.
+    //This is what makes the tween move
+    o.update = function () {
 
-  //     var time, curvedTime;
+      var time, curvedTime;
 
-  //     if (o.playing) {
+      if (o.playing) {
 
-  //       //If the elapsed frames are less than the total frames,
-  //       //use the tweening formulas to move the sprite
-  //       if (o.frameCounter < o.totalFrames) {
+        //If the elapsed frames are less than the total frames,
+        //use the tweening formulas to move the sprite
+        if (o.frameCounter < o.totalFrames) {
 
-  //         //Find the normalized value
-  //         var normalizedTime = o.frameCounter / o.totalFrames;
+          //Find the normalized value
+          var normalizedTime = o.frameCounter / o.totalFrames;
 
-  //         //Select the correct easing function from the 
-  //         //`ease` object’s library of easing functions
+          //Select the correct easing function from the 
+          //`ease` object’s library of easing functions
 
-  //         //If it's not a spline, use one of the ordinary easing functions
-  //         if (typeArray[0] !== "bounce") {
-  //           curvedTime = ease[type](normalizedTime);
-  //         }
+          //If it's not a spline, use one of the ordinary easing functions
+          if (typeArray[0] !== "bounce") {
+            curvedTime = ease[type](normalizedTime);
+          }
 
-  //         //If it's a spline, use the `spline` function and apply the
-  //         //2 additional `type` array values as the spline's start and
-  //         //end points
-  //         else {
-  //           curvedTime = ease.spline(normalizedTime, o.startMagnitude, 0, 1, o.endMagnitude);
-  //         }
+          //If it's a spline, use the `spline` function and apply the
+          //2 additional `type` array values as the spline's start and
+          //end points
+          else {
+            curvedTime = ease.spline(normalizedTime, o.startMagnitude, 0, 1, o.endMagnitude);
+          }
 
-  //         //Interpolate the sprite's property based on the curve
-  //         sprite[property] = (o.endValue * curvedTime) + (o.startValue * (1 - curvedTime));
+          //Interpolate the sprite's property based on the curve
+          sprite[property] = (o.endValue * curvedTime) + (o.startValue * (1 - curvedTime));
 
-  //         o.frameCounter += 1;
-  //       }
+          o.frameCounter += 1;
+        }
 
-  //       //When the tween has finished playing, run the end tasks
-  //       else {
-  //         o.end();
-  //       }
-  //     }
-  //   };
+        //When the tween has finished playing, run the end tasks
+        else {
+          o.end();
+        }
+      }
+    };
 
-  //   //The `end` method will be called when the tween is finished
-  //   o.end = function () {
+    //The `end` method will be called when the tween is finished
+    o.end = function () {
 
-  //     //Set `playing` to `false`
-  //     o.playing = false;
+      //Set `playing` to `false`
+      o.playing = false;
 
-  //     //Call the tween's `onComplete` method, if it's been assigned
-  //     if (o.onComplete) o.onComplete();
+      //Call the tween's `onComplete` method, if it's been assigned
+      if (o.onComplete) o.onComplete();
 
-  //     //Remove the tween from the `tweens` array
-  //     ga.tweens.splice(ga.tweens.indexOf(o), 1);
+      //Remove the tween from the `tweens` array
+      ga.tweens.splice(ga.tweens.indexOf(o), 1);
 
-  //     //If the tween's `yoyo` property is `true`, create a new tween
-  //     //using the same values, but use the current tween's `startValue`
-  //     //as the next tween's `endValue` 
-  //     if (yoyo) {
-  //       ga.wait(delayBeforeRepeat, function () {
-  //         o.start(o.endValue, o.startValue);
-  //       });
-  //     }
-  //   };
+      //If the tween's `yoyo` property is `true`, create a new tween
+      //using the same values, but use the current tween's `startValue`
+      //as the next tween's `endValue` 
+      if (yoyo) {
+        ga.wait(delayBeforeRepeat, function () {
+          o.start(o.endValue, o.startValue);
+        });
+      }
+    };
 
-  //   //Pause and play methods
-  //   o.play = function () { o.playing = true; };
-  //   o.pause = function () { o.playing = false; };
+    //Pause and play methods
+    o.play = function () { o.playing = true; };
+    o.pause = function () { o.playing = false; };
 
-  //   //Return the tween object
-  //   return o;
-  // }
+    //Return the tween object
+    return o;
+  }
 
-  // /* High level tween functions */
+  /* High level tween functions */
 
-  // //###`fadeOut`
-  // //Fade a sprite out, over a duration in frames.
+  //###`fadeOut`
+  //Fade a sprite out, over a duration in frames.
   // ga.fadeOut = function (sprite, frames) {
   //   if (frames === undefined) frames = 60;
   //   return ga.tweenProperty(
@@ -1330,83 +1330,83 @@ GA.plugins = function (ga) {
   //   );
   // }
 
-  // //`makeTween` is a general function for making complex tweens
-  // //out of multiple `tweenProperty` functions. It's one argument,
-  // //`tweensToAdd` is an array containing multiple `tweenProperty` calls.
-  // //(See the `tweenProperty` function above for information on how it
-  // //works.)
+  //`makeTween` is a general function for making complex tweens
+  //out of multiple `tweenProperty` functions. It's one argument,
+  //`tweensToAdd` is an array containing multiple `tweenProperty` calls.
+  //(See the `tweenProperty` function above for information on how it
+  //works.)
 
-  // ga.makeTween = function (tweensToAdd) {
+  ga.makeTween = function (tweensToAdd) {
 
-  //   //Create an object to manage the tweens
-  //   var o = {};
+    //Create an object to manage the tweens
+    var o = {};
 
-  //   //Create a `tweens` array to store the new tweens
-  //   o.tweens = [];
+    //Create a `tweens` array to store the new tweens
+    o.tweens = [];
 
-  //   //Make a new tween for each array
-  //   tweensToAdd.forEach(function (tweenPropertyArguments) {
+    //Make a new tween for each array
+    tweensToAdd.forEach(function (tweenPropertyArguments) {
 
-  //     //Use the tween property arguments to make a new tween
-  //     var newTween = ga.tweenProperty(
-  //       tweenPropertyArguments[0],
-  //       tweenPropertyArguments[1],
-  //       tweenPropertyArguments[2],
-  //       tweenPropertyArguments[3],
-  //       tweenPropertyArguments[4],
-  //       tweenPropertyArguments[5],
-  //       tweenPropertyArguments[6],
-  //       tweenPropertyArguments[7]
-  //     );
+      //Use the tween property arguments to make a new tween
+      var newTween = ga.tweenProperty(
+        tweenPropertyArguments[0],
+        tweenPropertyArguments[1],
+        tweenPropertyArguments[2],
+        tweenPropertyArguments[3],
+        tweenPropertyArguments[4],
+        tweenPropertyArguments[5],
+        tweenPropertyArguments[6],
+        tweenPropertyArguments[7]
+      );
 
-  //     //Push the new tween into this object's internal `tweens` array
-  //     o.tweens.push(newTween);
-  //   });
+      //Push the new tween into this object's internal `tweens` array
+      o.tweens.push(newTween);
+    });
 
-  //   //Add a counter to keep track of the
-  //   //number of tweens that have completed their actions
-  //   var completionCounter = 0;
+    //Add a counter to keep track of the
+    //number of tweens that have completed their actions
+    var completionCounter = 0;
 
-  //   //`o.completed` will be called each time one of the tweens
-  //   //finishes
-  //   o.completed = function () {
+    //`o.completed` will be called each time one of the tweens
+    //finishes
+    o.completed = function () {
 
-  //     //Add 1 to the `completionCounter`
-  //     completionCounter += 1;
+      //Add 1 to the `completionCounter`
+      completionCounter += 1;
 
-  //     //If all tweens have finished, call the user-defined `onComplete`
-  //     //method, if it's been assigned. Reset the `completionCounter`
-  //     if (completionCounter === o.tweens.length) {
-  //       if (o.onComplete) o.onComplete();
-  //       completionCounter = 0;
-  //     }
-  //   };
+      //If all tweens have finished, call the user-defined `onComplete`
+      //method, if it's been assigned. Reset the `completionCounter`
+      if (completionCounter === o.tweens.length) {
+        if (o.onComplete) o.onComplete();
+        completionCounter = 0;
+      }
+    };
 
-  //   //Add `onComplete` methods to all tweens
-  //   o.tweens.forEach(function (tween) {
-  //     tween.onComplete = function () { o.completed(); };
-  //   });
+    //Add `onComplete` methods to all tweens
+    o.tweens.forEach(function (tween) {
+      tween.onComplete = function () { o.completed(); };
+    });
 
-  //   //Add pause and play methods to control all the tweens
-  //   o.pause = function () {
-  //     o.tweens.forEach(function (tween) {
-  //       tween.playing = false;
-  //     });
-  //   };
-  //   o.play = function () {
-  //     o.tweens.forEach(function (tween) {
-  //       tween.playing = true;
-  //     });
-  //   };
+    //Add pause and play methods to control all the tweens
+    o.pause = function () {
+      o.tweens.forEach(function (tween) {
+        tween.playing = false;
+      });
+    };
+    o.play = function () {
+      o.tweens.forEach(function (tween) {
+        tween.playing = true;
+      });
+    };
 
-  //   //Return the tween object
-  //   return o;
-  // }
+    //Return the tween object
+    return o;
+  }
 
-  // //###`slide`
-  // //Make a sprite slide from one x/y position to another.
-  // //Use `slide` like this:
-  // //var spriteSlide = g.slide(sprite, 400, 0, 60, "smoothstep", true, 0);
+  //###`slide`
+  //Make a sprite slide from one x/y position to another.
+  //Use `slide` like this:
+  //var spriteSlide = g.slide(sprite, 400, 0, 60, "smoothstep", true, 0);
 
   // ga.slide = function (
   //   sprite, endX, endY,
@@ -1521,100 +1521,100 @@ GA.plugins = function (ga) {
   //   ]);
   // }
 
-  // //###`wobble`
-  // //Make a sprite wobble like a plate of jelly. Use it like this:
-  // //var spriteWobble = g.wobble(sprite, 1.2, 1.2);
+  //###`wobble`
+  //Make a sprite wobble like a plate of jelly. Use it like this:
+  //var spriteWobble = g.wobble(sprite, 1.2, 1.2);
 
-  // ga.wobble = function (
-  //   sprite,
-  //   scaleFactorX,
-  //   scaleFactorY,
-  //   frames,
-  //   xStartMagnitude,
-  //   xEndMagnitude,
-  //   yStartMagnitude,
-  //   yEndMagnitude,
-  //   friction,
-  //   yoyo,
-  //   delayBeforeRepeat
-  // ) {
+  ga.wobble = function (
+    sprite,
+    scaleFactorX,
+    scaleFactorY,
+    frames,
+    xStartMagnitude,
+    xEndMagnitude,
+    yStartMagnitude,
+    yEndMagnitude,
+    friction,
+    yoyo,
+    delayBeforeRepeat
+  ) {
 
-  //   //Set defaults
-  //   if (scaleFactorX === undefined) scaleFactorX = 1.2;
-  //   if (scaleFactorY === undefined) scaleFactorY = 1.2;
-  //   if (frames === undefined) frames = 10;
-  //   if (xStartMagnitude === undefined) xStartMagnitude = 10;
-  //   if (xEndMagnitude === undefined) xEndMagnitude = 10;
-  //   if (yStartMagnitude === undefined) yStartMagnitude = -10;
-  //   if (yEndMagnitude === undefined) yEndMagnitude = -10;
-  //   if (friction === undefined) friction = 0.98;
-  //   if (yoyo === undefined) yoyo = true;
-  //   if (delayBeforeRepeat === undefined) delayBeforeRepeat = 0;
+    //Set defaults
+    if (scaleFactorX === undefined) scaleFactorX = 1.2;
+    if (scaleFactorY === undefined) scaleFactorY = 1.2;
+    if (frames === undefined) frames = 10;
+    if (xStartMagnitude === undefined) xStartMagnitude = 10;
+    if (xEndMagnitude === undefined) xEndMagnitude = 10;
+    if (yStartMagnitude === undefined) yStartMagnitude = -10;
+    if (yEndMagnitude === undefined) yEndMagnitude = -10;
+    if (friction === undefined) friction = 0.98;
+    if (yoyo === undefined) yoyo = true;
+    if (delayBeforeRepeat === undefined) delayBeforeRepeat = 0;
 
-  //   var bounceX = "bounce " + xStartMagnitude + " " + xEndMagnitude,
-  //     bounceY = "bounce " + yStartMagnitude + " " + yEndMagnitude;
+    var bounceX = "bounce " + xStartMagnitude + " " + xEndMagnitude,
+      bounceY = "bounce " + yStartMagnitude + " " + yEndMagnitude;
 
-  //   var o = ga.makeTween([
+    var o = ga.makeTween([
 
-  //     //Create the scaleX tween
-  //     [
-  //       sprite, "scaleX", sprite.scaleX, scaleFactorX, frames,
-  //       bounceX, yoyo, delayBeforeRepeat
-  //     ],
+      //Create the scaleX tween
+      [
+        sprite, "scaleX", sprite.scaleX, scaleFactorX, frames,
+        bounceX, yoyo, delayBeforeRepeat
+      ],
 
-  //     //Create the scaleY tween
-  //     [
-  //       sprite, "scaleY", sprite.scaleY, scaleFactorY, frames,
-  //       bounceY, yoyo, delayBeforeRepeat
-  //     ]
-  //   ]);
+      //Create the scaleY tween
+      [
+        sprite, "scaleY", sprite.scaleY, scaleFactorY, frames,
+        bounceY, yoyo, delayBeforeRepeat
+      ]
+    ]);
 
-  //   //Add some friction to the `endValue` at the end of each tween 
-  //   o.tweens.forEach(function (tween) {
-  //     tween.onComplete = function () {
+    //Add some friction to the `endValue` at the end of each tween 
+    o.tweens.forEach(function (tween) {
+      tween.onComplete = function () {
 
-  //       //Add friction if the `endValue` is greater than 1.
-  //       if (tween.endValue > 1) {
-  //         tween.endValue *= friction;
+        //Add friction if the `endValue` is greater than 1.
+        if (tween.endValue > 1) {
+          tween.endValue *= friction;
 
-  //         //Set the `endValue` to 1 when the effect is finished and 
-  //         //remove the tween from the global `tweens` array.
-  //         if (tween.endValue <= 1) {
-  //           tween.endValue = 1;
-  //           ga.removeTween(tween);
-  //         }
-  //       }
-  //     };
-  //   });
+          //Set the `endValue` to 1 when the effect is finished and 
+          //remove the tween from the global `tweens` array.
+          if (tween.endValue <= 1) {
+            tween.endValue = 1;
+            ga.removeTween(tween);
+          }
+        }
+      };
+    });
 
-  //   return o;
-  // }
-  // /*
-  // ###removeTween
-  // A utility to remove tweens from the game
+    return o;
+  }
+  /*
+  ###removeTween
+  A utility to remove tweens from the game
 
-  // */
-  // ga.removeTween = function (tweenObject) {
+  */
+  ga.removeTween = function (tweenObject) {
 
-  //   //Remove the tween if `tweenObject` doesn't have any nested
-  //   //tween objects
-  //   if (!tweenObject.tweens) {
-  //     tweenObject.pause();
-  //     ga.tweens.splice(ga.tweens.indexOf(tweenObject), 1);
+    //Remove the tween if `tweenObject` doesn't have any nested
+    //tween objects
+    if (!tweenObject.tweens) {
+      tweenObject.pause();
+      ga.tweens.splice(ga.tweens.indexOf(tweenObject), 1);
 
-  //     //Otherwise, remove the nested tween objects
-  //   } else {
-  //     tweenObject.pause();
-  //     tweenObject.tweens.forEach(function (element) {
-  //       ga.tweens.splice(ga.tweens.indexOf(element), 1);
-  //     });
-  //   }
-  // }
+      //Otherwise, remove the nested tween objects
+    } else {
+      tweenObject.pause();
+      tweenObject.tweens.forEach(function (element) {
+        ga.tweens.splice(ga.tweens.indexOf(element), 1);
+      });
+    }
+  }
 
-  // /*
-  // followCurve
-  // ------------
-  // */
+  /*
+  followCurve
+  ------------
+  */
 
   // ga.followCurve = function (
   //   sprite,
@@ -2164,327 +2164,327 @@ GA.plugins = function (ga) {
   //   }
   // };
 
-  // /*
-  // particleEffect
-  // -----
+  /*
+  particleEffect
+  -----
 
-  // Create particles with a versatile function called function called
-  // `particleEffect`. It's all you'll need for most 2D action games.
-  // Here's an example of how to use it to 
-  // produce a starburst effect at the pointer's x and y position.
+  Create particles with a versatile function called function called
+  `particleEffect`. It's all you'll need for most 2D action games.
+  Here's an example of how to use it to 
+  produce a starburst effect at the pointer's x and y position.
 
-  //     g.particleEffect(
-  //       g.pointer.x,                             //The particle’s starting x position
-  //       g.pointer.y,                             //The particle’s starting y position
-  //       function(){                              //Particle function
-  //         return g.sprite("images/star.png");
-  //       },
-  //       20,                                      //Number of particles
-  //       0.1,                                     //Gravity
-  //       true,                                    //Random spacing
-  //       0, 6.28,                                 //Min/max angle
-  //       12, 24,                                  //Min/max size
-  //       1, 2,                                    //Min/max speed
-  //       0.005, 0.01,                             //Min/max scale speed
-  //       0.005, 0.01,                             //Min/max alpha speed
-  //       0.05, 0.1                                //Min/max rotation speed
-  //     );
+      g.particleEffect(
+        g.pointer.x,                             //The particle’s starting x position
+        g.pointer.y,                             //The particle’s starting y position
+        function(){                              //Particle function
+          return g.sprite("images/star.png");
+        },
+        20,                                      //Number of particles
+        0.1,                                     //Gravity
+        true,                                    //Random spacing
+        0, 6.28,                                 //Min/max angle
+        12, 24,                                  //Min/max size
+        1, 2,                                    //Min/max speed
+        0.005, 0.01,                             //Min/max scale speed
+        0.005, 0.01,                             //Min/max alpha speed
+        0.05, 0.1                                //Min/max rotation speed
+      );
 
-  // You can see that most of those arguments describe range between 
-  // the minimum and maximum values that should be used to change 
-  // the sprites’ speed, rotation, scale and alpha.
-  // You can also assign the number of particles that should be created,
-  // and add optional gravity. 
+  You can see that most of those arguments describe range between 
+  the minimum and maximum values that should be used to change 
+  the sprites’ speed, rotation, scale and alpha.
+  You can also assign the number of particles that should be created,
+  and add optional gravity. 
 
-  // You can make particles using any sprites by customizing the third argument. 
-  // Just supply a function that returns the kind of sprite you want to use for each particle:
+  You can make particles using any sprites by customizing the third argument. 
+  Just supply a function that returns the kind of sprite you want to use for each particle:
 
-  //     function(){                              
-  //       return g.sprite("images/star.png");
-  //     },
+      function(){                              
+        return g.sprite("images/star.png");
+      },
 
-  // If you supply a sprite that has multiple frames, the particleEffect 
-  // function will automatically choose a random frame for each particle.
+  If you supply a sprite that has multiple frames, the particleEffect 
+  function will automatically choose a random frame for each particle.
 
-  // The minimum and maximum angle values are important for defining the 
-  // circular spread of particles as they radiate out from the origin point. 
-  // For a completely circular explosion effect, use a minimum angle 
-  // of 0, and a maximum angle for 6.28.
+  The minimum and maximum angle values are important for defining the 
+  circular spread of particles as they radiate out from the origin point. 
+  For a completely circular explosion effect, use a minimum angle 
+  of 0, and a maximum angle for 6.28.
 
-  //     0, 6.28
+      0, 6.28
 
-  // (These numbers values are radians; the equivalent in degrees is 0 and 360.) 
-  // 0 starts at the 3 o’clock position, pointing directly to the right. 3.14 
-  // is the 9 o’clock position, and 6.28 takes you around back to 0 again.
+  (These numbers values are radians; the equivalent in degrees is 0 and 360.) 
+  0 starts at the 3 o’clock position, pointing directly to the right. 3.14 
+  is the 9 o’clock position, and 6.28 takes you around back to 0 again.
 
-  // If you want to constrain the particles to a narrower angle range, just supply 
-  // the minimum and maximum values that describe that range. Here are values 
-  // you could use to constrain the angle to a pizza-slice with the crust pointing left.
+  If you want to constrain the particles to a narrower angle range, just supply 
+  the minimum and maximum values that describe that range. Here are values 
+  you could use to constrain the angle to a pizza-slice with the crust pointing left.
 
-  // 2.4, 3.6
+  2.4, 3.6
 
-  // You could use a constrained angle range like this to create a particle stream, 
-  // like a fountain or rocket engine flames. By carefully choosing the sprite for 
-  // the particle and finely adjusting each parameter, you can use this 
-  // all-purpose `particleEffect` function to simulate everything from liquid to fire. 
-  // */
+  You could use a constrained angle range like this to create a particle stream, 
+  like a fountain or rocket engine flames. By carefully choosing the sprite for 
+  the particle and finely adjusting each parameter, you can use this 
+  all-purpose `particleEffect` function to simulate everything from liquid to fire. 
+  */
 
-  // //First, you need an array to store the particles.
-  // ga.particles = [];
+  //First, you need an array to store the particles.
+  ga.particles = [];
 
-  // ga.particleEffect = function (
-  //   x,
-  //   y,
-  //   spriteFunction,
-  //   numberOfParticles,
-  //   gravity,
-  //   randomSpacing,
-  //   minAngle, maxAngle,
-  //   minSize, maxSize,
-  //   minSpeed, maxSpeed,
-  //   minScaleSpeed, maxScaleSpeed,
-  //   minAlphaSpeed, maxAlphaSpeed,
-  //   minRotationSpeed, maxRotationSpeed
-  // ) {
+  ga.particleEffect = function (
+    x,
+    y,
+    spriteFunction,
+    numberOfParticles,
+    gravity,
+    randomSpacing,
+    minAngle, maxAngle,
+    minSize, maxSize,
+    minSpeed, maxSpeed,
+    minScaleSpeed, maxScaleSpeed,
+    minAlphaSpeed, maxAlphaSpeed,
+    minRotationSpeed, maxRotationSpeed
+  ) {
 
-  //   if (x === undefined) x = 0;
-  //   if (y === undefined) y = 0;
-  //   if (spriteFunction === undefined) spriteFunction = function () { return ga.circle(10, "red") };
-  //   if (numberOfParticles === undefined) numberOfParticles = 10;
-  //   if (gravity === undefined) gravity = 0;
-  //   if (randomSpacing === undefined) randomSpacing = true;
-  //   if (minAngle === undefined) minAngle = 0;
-  //   if (maxAngle === undefined) maxAngle = 6.28;
-  //   if (minSize === undefined) minSize = 4;
-  //   if (maxSize === undefined) maxSize = 16;
-  //   if (minSpeed === undefined) minSpeed = 0.1;
-  //   if (maxSpeed === undefined) maxSpeed = 1;
-  //   if (minScaleSpeed === undefined) minScaleSpeed = 0.01;
-  //   if (maxScaleSpeed === undefined) maxScaleSpeed = 0.05;
-  //   if (minAlphaSpeed === undefined) minAlphaSpeed = 0.02;
-  //   if (maxAlphaSpeed === undefined) maxAlphaSpeed = 0.02;
-  //   if (minRotationSpeed === undefined) minRotationSpeed = 0.01;
-  //   if (maxRotationSpeed === undefined) maxRotationSpeed = 0.03;
+    if (x === undefined) x = 0;
+    if (y === undefined) y = 0;
+    if (spriteFunction === undefined) spriteFunction = function () { return ga.circle(10, "red") };
+    if (numberOfParticles === undefined) numberOfParticles = 10;
+    if (gravity === undefined) gravity = 0;
+    if (randomSpacing === undefined) randomSpacing = true;
+    if (minAngle === undefined) minAngle = 0;
+    if (maxAngle === undefined) maxAngle = 6.28;
+    if (minSize === undefined) minSize = 4;
+    if (maxSize === undefined) maxSize = 16;
+    if (minSpeed === undefined) minSpeed = 0.1;
+    if (maxSpeed === undefined) maxSpeed = 1;
+    if (minScaleSpeed === undefined) minScaleSpeed = 0.01;
+    if (maxScaleSpeed === undefined) maxScaleSpeed = 0.05;
+    if (minAlphaSpeed === undefined) minAlphaSpeed = 0.02;
+    if (maxAlphaSpeed === undefined) maxAlphaSpeed = 0.02;
+    if (minRotationSpeed === undefined) minRotationSpeed = 0.01;
+    if (maxRotationSpeed === undefined) maxRotationSpeed = 0.03;
 
-  //   //`randomFloat` and `randomInt` helper functions
-  //   var randomFloat = function (min, max) { return min + Math.random() * (max - min) },
-  //     randomInt = function (min, max) { return Math.floor(Math.random() * (max - min + 1)) + min };
+    //`randomFloat` and `randomInt` helper functions
+    var randomFloat = function (min, max) { return min + Math.random() * (max - min) },
+      randomInt = function (min, max) { return Math.floor(Math.random() * (max - min + 1)) + min };
 
-  //   //An array to store the angles
-  //   var angles = [];
+    //An array to store the angles
+    var angles = [];
 
-  //   //A variable to store the current particle's angle
-  //   var angle;
+    //A variable to store the current particle's angle
+    var angle;
 
-  //   //Figure out by how many radians each particle should be separated
-  //   var spacing = (maxAngle - minAngle) / (numberOfParticles - 1);
+    //Figure out by how many radians each particle should be separated
+    var spacing = (maxAngle - minAngle) / (numberOfParticles - 1);
 
-  //   //Create an angle value for each particle and push that
-  //   //value into the `angles` array
-  //   for (var i = 0; i < numberOfParticles; i++) {
+    //Create an angle value for each particle and push that
+    //value into the `angles` array
+    for (var i = 0; i < numberOfParticles; i++) {
 
-  //     //If `randomSpacing` is `true`, give the particle any angle
-  //     //value between `minAngle` and `maxAngle`
-  //     if (randomSpacing) {
-  //       angle = randomFloat(minAngle, maxAngle);
-  //       angles.push(angle);
-  //     }
+      //If `randomSpacing` is `true`, give the particle any angle
+      //value between `minAngle` and `maxAngle`
+      if (randomSpacing) {
+        angle = randomFloat(minAngle, maxAngle);
+        angles.push(angle);
+      }
 
-  //     //If `randomSpacing` is `false`, space each particle evenly,
-  //     //starting with the `minAngle` and ending with the `maxAngle`
-  //     else {
-  //       if (angle === undefined) angle = minAngle;
-  //       angles.push(angle);
-  //       angle += spacing;
-  //     }
-  //   }
+      //If `randomSpacing` is `false`, space each particle evenly,
+      //starting with the `minAngle` and ending with the `maxAngle`
+      else {
+        if (angle === undefined) angle = minAngle;
+        angles.push(angle);
+        angle += spacing;
+      }
+    }
 
-  //   //Make a particle for each angle
-  //   angles.forEach(function (angle) {
-  //     makeParticle(angle)
-  //   });
+    //Make a particle for each angle
+    angles.forEach(function (angle) {
+      makeParticle(angle)
+    });
 
-  //   //Make the particle
-  //   function makeParticle(angle) {
+    //Make the particle
+    function makeParticle(angle) {
 
-  //     //Create the particle using the supplied sprite function
-  //     var particle = spriteFunction();
+      //Create the particle using the supplied sprite function
+      var particle = spriteFunction();
 
-  //     //Display a random frame if the particle has more than 1 frame
-  //     if (particle.frames.length > 0) {
-  //       particle.gotoAndStop(randomInt(0, particle.frames.length - 1));
-  //     }
+      //Display a random frame if the particle has more than 1 frame
+      // if (particle.frames.length > 0) {
+      //   particle.gotoAndStop(randomInt(0, particle.frames.length - 1));
+      // }
 
-  //     //Set the x and y position
-  //     particle.x = x - particle.halfWidth;
-  //     particle.y = y - particle.halfHeight;
+      //Set the x and y position
+      particle.x = x - particle.halfWidth;
+      particle.y = y - particle.halfHeight;
 
-  //     //Set a random width and height
-  //     var size = randomInt(minSize, maxSize);
-  //     particle.width = size;
-  //     particle.height = size;
+      //Set a random width and height
+      var size = randomInt(minSize, maxSize);
+      particle.width = size;
+      particle.height = size;
 
-  //     //Set a random speed to change the scale, alpha and rotation
-  //     particle.scaleSpeed = randomFloat(minScaleSpeed, maxScaleSpeed);
-  //     particle.alphaSpeed = randomFloat(minAlphaSpeed, maxAlphaSpeed);
-  //     particle.rotationSpeed = randomFloat(minRotationSpeed, maxRotationSpeed);
+      //Set a random speed to change the scale, alpha and rotation
+      particle.scaleSpeed = randomFloat(minScaleSpeed, maxScaleSpeed);
+      particle.alphaSpeed = randomFloat(minAlphaSpeed, maxAlphaSpeed);
+      particle.rotationSpeed = randomFloat(minRotationSpeed, maxRotationSpeed);
 
-  //     //Set a random velocity at which the particle should move
-  //     var speed = randomFloat(minSpeed, maxSpeed);
-  //     particle.vx = speed * Math.cos(angle);
-  //     particle.vy = speed * Math.sin(angle);
+      //Set a random velocity at which the particle should move
+      var speed = randomFloat(minSpeed, maxSpeed);
+      particle.vx = speed * Math.cos(angle);
+      particle.vy = speed * Math.sin(angle);
 
-  //     //The particle's `update` method is called on each frame of the
-  //     //game loop
-  //     particle.updateParticle = function () {
+      //The particle's `update` method is called on each frame of the
+      //game loop
+      particle.updateParticle = function () {
 
-  //       //Add gravity
-  //       particle.vy += gravity;
+        //Add gravity
+        particle.vy += gravity;
 
-  //       //Move the particle
-  //       particle.x += particle.vx;
-  //       particle.y += particle.vy;
+        //Move the particle
+        particle.x += particle.vx;
+        particle.y += particle.vy;
 
-  //       //Change the particle's `scale`
-  //       if (particle.scaleX - particle.scaleSpeed > 0) {
-  //         particle.scaleX -= particle.scaleSpeed;
-  //       }
-  //       if (particle.scaleY - particle.scaleSpeed > 0) {
-  //         particle.scaleY -= particle.scaleSpeed;
-  //       }
+        //Change the particle's `scale`
+        if (particle.scaleX - particle.scaleSpeed > 0) {
+          particle.scaleX -= particle.scaleSpeed;
+        }
+        if (particle.scaleY - particle.scaleSpeed > 0) {
+          particle.scaleY -= particle.scaleSpeed;
+        }
 
-  //       //Change the particle's rotation
-  //       particle.rotation += particle.rotationSpeed;
+        //Change the particle's rotation
+        particle.rotation += particle.rotationSpeed;
 
-  //       //Change the particle's `alpha`
-  //       particle.alpha -= particle.alphaSpeed;
+        //Change the particle's `alpha`
+        particle.alpha -= particle.alphaSpeed;
 
-  //       //Remove the particle if its `alpha` reaches zero
-  //       if (particle.alpha <= 0) {
-  //         ga.remove(particle);
-  //         ga.particles.splice(ga.particles.indexOf(particle), 1);
-  //       }
-  //     };
+        //Remove the particle if its `alpha` reaches zero
+        if (particle.alpha <= 0) {
+          ga.remove(particle);
+          ga.particles.splice(ga.particles.indexOf(particle), 1);
+        }
+      };
 
-  //     //Push the particle into the `particles` array
-  //     //The `particles` array needs to be updated by the game loop each
-  //     //frame
-  //     ga.particles.push(particle);
-  //   }
-  // }
+      //Push the particle into the `particles` array
+      //The `particles` array needs to be updated by the game loop each
+      //frame
+      ga.particles.push(particle);
+    }
+  }
 
-  // //`updateParticles` loops through all the sprites in `ga.particles`
-  // //and runs their `updateParticles` functions.
-  // ga.updateParticles = function () {
+  //`updateParticles` loops through all the sprites in `ga.particles`
+  //and runs their `updateParticles` functions.
+  ga.updateParticles = function () {
 
-  //   //Update all the particles in the game.
-  //   if (ga.particles.length > 0) {
-  //     for (var i = ga.particles.length - 1; i >= 0; i--) {
-  //       var particle = ga.particles[i];
-  //       particle.updateParticle();
-  //     }
-  //   }
-  // }
+    //Update all the particles in the game.
+    if (ga.particles.length > 0) {
+      for (var i = ga.particles.length - 1; i >= 0; i--) {
+        var particle = ga.particles[i];
+        particle.updateParticle();
+      }
+    }
+  }
 
-  // //Push `updateParticles` into the `ga.updateFunctions` array so that
-  // //it runs inside Ga's game loop. (See the `ga.update` method in the 
-  // //`ga.js` file to see how this works.
-  // ga.updateFunctions.push(ga.updateParticles);
+  //Push `updateParticles` into the `ga.updateFunctions` array so that
+  //it runs inside Ga's game loop. (See the `ga.update` method in the 
+  //`ga.js` file to see how this works.
+  ga.updateFunctions.push(ga.updateParticles);
 
-  // /*
-  // emitter
-  // -------
+  /*
+  emitter
+  -------
 
-  // Use the `emitter` function to create a constant stream of particles
-  // at fixed intervals. The emitter is a simple timer that calls the 
-  // `particleEffect` function repeatedly at intervals in milliseconds that
-  // you define. Use the emitter's `play` and `stop` methods to start and 
-  // stop the particle stream.
+  Use the `emitter` function to create a constant stream of particles
+  at fixed intervals. The emitter is a simple timer that calls the 
+  `particleEffect` function repeatedly at intervals in milliseconds that
+  you define. Use the emitter's `play` and `stop` methods to start and 
+  stop the particle stream.
 
-  // Here's how to use it to create particle emitter that emits star sprites
-  // a 100ms intervals when the pointer is pressed:
+  Here's how to use it to create particle emitter that emits star sprites
+  a 100ms intervals when the pointer is pressed:
 
-  //     //Create the emitter
-  //     var particleStream = g.emitter(
-  //       100,                                           //The interval
-  //       function(){
-  //         return g.particleEffect(                     //The particle function
-  //           g.pointer.x,                               //x position
-  //           g.pointer.y,                               //y position
-  //           function(){                                //Particle sprite
-  //             return g.sprite("images/star.png");
-  //           }, 
-  //           10,                                        //Number of particles
-  //           0.1,                                       //Gravity
-  //           false,                                     //Random spacing
-  //           3.14, 6.28,                                //Min/max angle
-  //           16, 32,                                    //Min/max size
-  //           2, 5                                       //Min/max speed
-  //         );
-  //       }
-  //     );
+      //Create the emitter
+      var particleStream = g.emitter(
+        100,                                           //The interval
+        function(){
+          return g.particleEffect(                     //The particle function
+            g.pointer.x,                               //x position
+            g.pointer.y,                               //y position
+            function(){                                //Particle sprite
+              return g.sprite("images/star.png");
+            }, 
+            10,                                        //Number of particles
+            0.1,                                       //Gravity
+            false,                                     //Random spacing
+            3.14, 6.28,                                //Min/max angle
+            16, 32,                                    //Min/max size
+            2, 5                                       //Min/max speed
+          );
+        }
+      );
 
-  //     //Play the particle stream when the pointer is pressed
-  //     g.pointer.press = function(){
-  //       particleStream.play();
-  //       console.log(particleStream.playing)
-  //     };
+      //Play the particle stream when the pointer is pressed
+      g.pointer.press = function(){
+        particleStream.play();
+        console.log(particleStream.playing)
+      };
 
-  //     //Stop the particle stream when the pointer is released
-  //     g.pointer.release = function(){
-  //       particleStream.stop();
-  //       console.log(particleStream.playing)
-  //     };
-  // */
+      //Stop the particle stream when the pointer is released
+      g.pointer.release = function(){
+        particleStream.stop();
+        console.log(particleStream.playing)
+      };
+  */
 
-  // ga.emitter = function (interval, particleFunction) {
-  //   var emitter = {},
-  //     timerInterval = undefined;
+  ga.emitter = function (interval, particleFunction) {
+    var emitter = {},
+      timerInterval = undefined;
 
-  //   emitter.playing = false;
+    emitter.playing = false;
 
-  //   function play() {
-  //     if (!emitter.playing) {
-  //       particleFunction();
-  //       timerInterval = setInterval(emitParticle.bind(this), interval);
-  //       emitter.playing = true;
-  //     }
-  //   }
+    function play() {
+      if (!emitter.playing) {
+        particleFunction();
+        timerInterval = setInterval(emitParticle.bind(this), interval);
+        emitter.playing = true;
+      }
+    }
 
-  //   function stop() {
-  //     if (emitter.playing) {
-  //       clearInterval(timerInterval);
-  //       emitter.playing = false;
-  //     }
-  //   }
+    function stop() {
+      if (emitter.playing) {
+        clearInterval(timerInterval);
+        emitter.playing = false;
+      }
+    }
 
-  //   function emitParticle() {
-  //     particleFunction();
-  //   }
+    function emitParticle() {
+      particleFunction();
+    }
 
-  //   emitter.play = play;
-  //   emitter.stop = stop;
-  //   return emitter;
-  // }
+    emitter.play = play;
+    emitter.stop = stop;
+    return emitter;
+  }
 
-  // /*
-  // tilingSprite
-  // ------------
-  // Use a `tilingSprite` to create a seamless scrolling effect.
-  // You could use it to create an infinite scrolling background.
-  // Scroll the sprite's tile pattern using `tileX` and `tileY` properties.
-  // For example, you could create a tiling sprite like this:
+  /*
+  tilingSprite
+  ------------
+  Use a `tilingSprite` to create a seamless scrolling effect.
+  You could use it to create an infinite scrolling background.
+  Scroll the sprite's tile pattern using `tileX` and `tileY` properties.
+  For example, you could create a tiling sprite like this:
 
-  //     box = g.tilingSprite(128, 128, "images/tile.png");
+      box = g.tilingSprite(128, 128, "images/tile.png");
 
-  // Then in the game loop, scroll the x and y background position like this:
+  Then in the game loop, scroll the x and y background position like this:
 
-  //     box.tileY += 1;
-  //     box.tileX += 1;
+      box.tileY += 1;
+      box.tileX += 1;
 
-  // The position of the box won't change, but the position of the image that it contains will.
+  The position of the box won't change, but the position of the image that it contains will.
 
-  // */
+  */
 
   // ga.tilingSprite = function (width, height, source, x, y) {
 
@@ -3021,123 +3021,123 @@ GA.plugins = function (ga) {
 
    */
 
-  ga.hitTestCircleRectangle = function (c1, r1, global) {
+  // ga.hitTestCircleRectangle = function (c1, r1, global) {
 
-    var region, collision, c1x, c1y, r1x, r1y;
+  //   var region, collision, c1x, c1y, r1x, r1y;
 
-    //Set `global` to a default value of `false`
-    if (global === undefined) global = false;
+  //   //Set `global` to a default value of `false`
+  //   if (global === undefined) global = false;
 
-    //Use either global or local coordinates
-    if (global) {
-      c1x = c1.gx;
-      c1y = c1.gy
-      r1x = r1.gx;
-      r1y = r1.gy;
-    } else {
-      c1x = c1.x;
-      c1y = c1.y
-      r1x = r1.x;
-      r1y = r1.y;
-    }
+  //   //Use either global or local coordinates
+  //   if (global) {
+  //     c1x = c1.gx;
+  //     c1y = c1.gy
+  //     r1x = r1.gx;
+  //     r1y = r1.gy;
+  //   } else {
+  //     c1x = c1.x;
+  //     c1y = c1.y
+  //     r1x = r1.x;
+  //     r1y = r1.y;
+  //   }
 
-    //Is the circle above the rectangle's top edge?
-    if (c1y < r1y - r1.halfHeight) {
+  //   //Is the circle above the rectangle's top edge?
+  //   if (c1y < r1y - r1.halfHeight) {
 
-      //If it is, we need to check whether it's in the 
-      //top left, top center or top right
-      //(Increasing the size of the region by 2 pixels slightly weights
-      //the text in favor of a rectangle vs. rectangle collision test.
-      //This gives a more natural looking result with corner collisions
-      //when physics is added)
-      if (c1x < r1x - 1 - r1.halfWidth) {
-        region = "topLeft";
-      }
-      else if (c1x > r1x + 1 + r1.halfWidth) {
-        region = "topRight";
-      }
-      else {
-        region = "topMiddle";
-      }
-    }
+  //     //If it is, we need to check whether it's in the 
+  //     //top left, top center or top right
+  //     //(Increasing the size of the region by 2 pixels slightly weights
+  //     //the text in favor of a rectangle vs. rectangle collision test.
+  //     //This gives a more natural looking result with corner collisions
+  //     //when physics is added)
+  //     if (c1x < r1x - 1 - r1.halfWidth) {
+  //       region = "topLeft";
+  //     }
+  //     else if (c1x > r1x + 1 + r1.halfWidth) {
+  //       region = "topRight";
+  //     }
+  //     else {
+  //       region = "topMiddle";
+  //     }
+  //   }
 
-    //The circle isn't above the top edge, so it might be
-    //below the bottom edge
-    else if (c1y > r1y + r1.halfHeight) {
+  //   //The circle isn't above the top edge, so it might be
+  //   //below the bottom edge
+  //   else if (c1y > r1y + r1.halfHeight) {
 
-      //If it is, we need to check whether it's in the bottom left,
-      //bottom center, or bottom right
-      if (c1x < r1x - 1 - r1.halfWidth) {
-        region = "bottomLeft";
-      }
-      else if (c1x > r1x + 1 + r1.halfWidth) {
-        region = "bottomRight";
-      }
-      else {
-        region = "bottomMiddle";
-      }
-    }
+  //     //If it is, we need to check whether it's in the bottom left,
+  //     //bottom center, or bottom right
+  //     if (c1x < r1x - 1 - r1.halfWidth) {
+  //       region = "bottomLeft";
+  //     }
+  //     else if (c1x > r1x + 1 + r1.halfWidth) {
+  //       region = "bottomRight";
+  //     }
+  //     else {
+  //       region = "bottomMiddle";
+  //     }
+  //   }
 
-    //The circle isn't above the top edge or below the bottom edge,
-    //so it must be on the left or right side
-    else {
-      if (c1x < r1x - r1.halfWidth) {
-        region = "leftMiddle";
-      }
-      else {
-        region = "rightMiddle";
-      }
-    }
+  //   //The circle isn't above the top edge or below the bottom edge,
+  //   //so it must be on the left or right side
+  //   else {
+  //     if (c1x < r1x - r1.halfWidth) {
+  //       region = "leftMiddle";
+  //     }
+  //     else {
+  //       region = "rightMiddle";
+  //     }
+  //   }
 
-    //Is this the circle touching the flat sides
-    //of the rectangle?
-    if (region === "topMiddle"
-      || region === "bottomMiddle"
-      || region === "leftMiddle"
-      || region === "rightMiddle") {
+  //   //Is this the circle touching the flat sides
+  //   //of the rectangle?
+  //   if (region === "topMiddle"
+  //     || region === "bottomMiddle"
+  //     || region === "leftMiddle"
+  //     || region === "rightMiddle") {
 
-      //Yes, it is, so do a standard rectangle vs. rectangle collision test
-      collision = ga.hitTestRectangle(c1, r1, global);
-    }
+  //     //Yes, it is, so do a standard rectangle vs. rectangle collision test
+  //     collision = ga.hitTestRectangle(c1, r1, global);
+  //   }
 
-    //The circle is touching one of the corners, so do a
-    //circle vs. point collision test
-    else {
-      var point = {};
+  //   //The circle is touching one of the corners, so do a
+  //   //circle vs. point collision test
+  //   else {
+  //     var point = {};
 
-      switch (region) {
-        case "topLeft":
-          point.x = r1x;
-          point.y = r1y;
-          break;
+  //     switch (region) {
+  //       case "topLeft":
+  //         point.x = r1x;
+  //         point.y = r1y;
+  //         break;
 
-        case "topRight":
-          point.x = r1x + r1.width;
-          point.y = r1y;
-          break;
+  //       case "topRight":
+  //         point.x = r1x + r1.width;
+  //         point.y = r1y;
+  //         break;
 
-        case "bottomLeft":
-          point.x = r1x;
-          point.y = r1y + r1.height;
-          break;
+  //       case "bottomLeft":
+  //         point.x = r1x;
+  //         point.y = r1y + r1.height;
+  //         break;
 
-        case "bottomRight":
-          point.x = r1x + r1.width;
-          point.y = r1y + r1.height;
-      }
+  //       case "bottomRight":
+  //         point.x = r1x + r1.width;
+  //         point.y = r1y + r1.height;
+  //     }
 
-      //Check for a collision between the circle and the point
-      collision = ga.hitTestCirclePoint(c1, point, global);
-    }
+  //     //Check for a collision between the circle and the point
+  //     collision = ga.hitTestCirclePoint(c1, point, global);
+  //   }
 
-    //Return the result of the collision.
-    //The return value will be `undefined` if there's no collision
-    if (collision) {
-      return region;
-    } else {
-      return collision;
-    }
-  };
+  //   //Return the result of the collision.
+  //   //The return value will be `undefined` if there's no collision
+  //   if (collision) {
+  //     return region;
+  //   } else {
+  //     return collision;
+  //   }
+  // };
 
   // /*
   // hitTestCirclePoint
@@ -3180,118 +3180,118 @@ GA.plugins = function (ga) {
   should bounce off the second sprite.
   */
 
-  ga.rectangleCollision = function (r1, r2, bounce, global) {
-    var collision, combinedHalfWidths, combinedHalfHeights,
-      overlapX, overlapY, vx, vy;
+  // ga.rectangleCollision = function (r1, r2, bounce, global) {
+  //   var collision, combinedHalfWidths, combinedHalfHeights,
+  //     overlapX, overlapY, vx, vy;
 
-    //Set `bounce` to a default value of `true`
-    if (bounce === undefined) bounce = false;
+  //   //Set `bounce` to a default value of `true`
+  //   if (bounce === undefined) bounce = false;
 
-    //Set `global` to a default value of `false`
-    if (global === undefined) global = false;
+  //   //Set `global` to a default value of `false`
+  //   if (global === undefined) global = false;
 
-    //Calculate the distance vector
-    if (global) {
-      vx = (r1.gx + r1.halfWidth) - (r2.gx + r2.halfWidth);
-      vy = (r1.gy + r1.halfHeight) - (r2.gy + r2.halfHeight);
-    } else {
-      vx = r1.centerX - r2.centerX;
-      vy = r1.centerY - r2.centerY;
-    }
+  //   //Calculate the distance vector
+  //   if (global) {
+  //     vx = (r1.gx + r1.halfWidth) - (r2.gx + r2.halfWidth);
+  //     vy = (r1.gy + r1.halfHeight) - (r2.gy + r2.halfHeight);
+  //   } else {
+  //     vx = r1.centerX - r2.centerX;
+  //     vy = r1.centerY - r2.centerY;
+  //   }
 
-    //Figure out the combined half-widths and half-heights
-    combinedHalfWidths = r1.halfWidth + r2.halfWidth;
-    combinedHalfHeights = r1.halfHeight + r2.halfHeight;
+  //   //Figure out the combined half-widths and half-heights
+  //   combinedHalfWidths = r1.halfWidth + r2.halfWidth;
+  //   combinedHalfHeights = r1.halfHeight + r2.halfHeight;
 
-    //Check whether vx is less than the combined half widths
-    if (Math.abs(vx) < combinedHalfWidths) {
+  //   //Check whether vx is less than the combined half widths
+  //   if (Math.abs(vx) < combinedHalfWidths) {
 
-      //A collision might be occurring!
-      //Check whether vy is less than the combined half heights
-      if (Math.abs(vy) < combinedHalfHeights) {
+  //     //A collision might be occurring!
+  //     //Check whether vy is less than the combined half heights
+  //     if (Math.abs(vy) < combinedHalfHeights) {
 
-        //A collision has occurred! This is good!
-        //Find out the size of the overlap on both the X and Y axes
-        overlapX = combinedHalfWidths - Math.abs(vx);
-        overlapY = combinedHalfHeights - Math.abs(vy);
+  //       //A collision has occurred! This is good!
+  //       //Find out the size of the overlap on both the X and Y axes
+  //       overlapX = combinedHalfWidths - Math.abs(vx);
+  //       overlapY = combinedHalfHeights - Math.abs(vy);
 
-        //The collision has occurred on the axis with the
-        //*smallest* amount of overlap. Let's figure out which
-        //axis that is
+  //       //The collision has occurred on the axis with the
+  //       //*smallest* amount of overlap. Let's figure out which
+  //       //axis that is
 
-        if (overlapX >= overlapY) {
+  //       if (overlapX >= overlapY) {
 
-          //The collision is happening on the X axis
-          //But on which side? vy can tell us
-          if (vy > 0) {
-            collision = "top";
+  //         //The collision is happening on the X axis
+  //         //But on which side? vy can tell us
+  //         if (vy > 0) {
+  //           collision = "top";
 
-            //Move the rectangle out of the collision
-            r1.y = r1.y + overlapY;
-          } else {
-            collision = "bottom";
+  //           //Move the rectangle out of the collision
+  //           r1.y = r1.y + overlapY;
+  //         } else {
+  //           collision = "bottom";
 
-            //Move the rectangle out of the collision
-            r1.y = r1.y - overlapY;
-          }
-          //Bounce
-          if (bounce) {
-            r1.vy *= -1;
+  //           //Move the rectangle out of the collision
+  //           r1.y = r1.y - overlapY;
+  //         }
+  //         //Bounce
+  //         if (bounce) {
+  //           r1.vy *= -1;
 
-            /*Alternative
-            //Find the bounce surface's vx and vy properties
-            var s = {};
-            s.vx = r2.x - r2.x + r2.width;
-            s.vy = 0;
+  //           /*Alternative
+  //           //Find the bounce surface's vx and vy properties
+  //           var s = {};
+  //           s.vx = r2.x - r2.x + r2.width;
+  //           s.vy = 0;
 
-            //Bounce r1 off the surface
-            //bounceOffSurface(r1, s);
-            */
-          }
-        } else {
+  //           //Bounce r1 off the surface
+  //           //bounceOffSurface(r1, s);
+  //           */
+  //         }
+  //       } else {
 
-          //The collision is happening on the Y axis
-          //But on which side? vx can tell us
-          if (vx > 0) {
-            collision = "left";
+  //         //The collision is happening on the Y axis
+  //         //But on which side? vx can tell us
+  //         if (vx > 0) {
+  //           collision = "left";
 
-            //Move the rectangle out of the collision
-            r1.x = r1.x + overlapX;
-          } else {
-            collision = "right";
+  //           //Move the rectangle out of the collision
+  //           r1.x = r1.x + overlapX;
+  //         } else {
+  //           collision = "right";
 
-            //Move the rectangle out of the collision
-            r1.x = r1.x - overlapX;
-          }
+  //           //Move the rectangle out of the collision
+  //           r1.x = r1.x - overlapX;
+  //         }
 
-          //Bounce
-          if (bounce) {
-            r1.vx *= -1;
+  //         //Bounce
+  //         if (bounce) {
+  //           r1.vx *= -1;
 
-            /*Alternative
-            //Find the bounce surface's vx and vy properties
-            var s = {};
-            s.vx = 0;
-            s.vy = r2.y - r2.y + r2.height;
+  //           /*Alternative
+  //           //Find the bounce surface's vx and vy properties
+  //           var s = {};
+  //           s.vx = 0;
+  //           s.vy = r2.y - r2.y + r2.height;
 
-            //Bounce r1 off the surface
-            bounceOffSurface(r1, s);
-            */
-          }
-        }
-      } else {
+  //           //Bounce r1 off the surface
+  //           bounceOffSurface(r1, s);
+  //           */
+  //         }
+  //       }
+  //     } else {
 
-        //No collision
-      }
-    } else {
+  //       //No collision
+  //     }
+  //   } else {
 
-      //No collision
-    }
+  //     //No collision
+  //   }
 
-    //Return the collision string. it will be either "top", "right",
-    //"bottom", or "left" depening on which side of r1 is touching r2.
-    return collision;
-  }
+  //   //Return the collision string. it will be either "top", "right",
+  //   //"bottom", or "left" depening on which side of r1 is touching r2.
+  //   return collision;
+  // }
 
   // /*
   // #### circleCollision

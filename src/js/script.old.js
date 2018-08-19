@@ -1,3 +1,4 @@
+/* eslint-disable */
 //Create a new Ga instance, and start it.
 //Pre-load images in the array.
 var g = ga(
