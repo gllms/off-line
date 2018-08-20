@@ -7,17 +7,20 @@ var obstacles
 var potions
 var line
 var wobble
+var scoreText
+var highScore
 
 const w = 512
 const obstacleDamage = 1
 const lineDamage = 0.2
 const potionHealth = 8
-var speed = 5
+var speed = 4
+var score = 0
 
 var g = ga(w, w, setup)
 g.start()
 
-function setup () {
+function setup() {
   gameScene = g.group()
 
   g.backgroundColor = 'navajowhite'
@@ -63,13 +66,20 @@ function setup () {
   g.fourKeyController(player, speed, 38, 39, 40, 37)
   gameScene.addChild(player)
 
+  // Create score text
+  scoreText = g.text("0", "32px Tahoma", "dodgerblue", 20, 20);
+
+  // Check for highscore
+  highScore = localStorage.getItem("highScore")
+  if (highScore) document.getElementById("debug").innerHTML = highScore
+
   g.state = play
 }
 
-function play () {
+function play() {
   // Speed up the game gradually
-  speed = speed * 1.000001
-  document.getElementById('debug').innerHTML = JSON.stringify(wobble)
+  speed = speed * 1.0001
+  // document.getElementById('debug').innerHTML = JSON.stringify(speed)
 
   g.move(player)
   g.contain(player, g.stage.localBounds)
@@ -154,18 +164,32 @@ function play () {
     line.fillStyle = 'slateblue'
   } else {
     line.fillStyle = 'yellowgreen'
+    score++
+    scoreText.content = Math.floor(score / 10)
   }
 
   if (player.inner.height <= 0) {
     player.outer.fillStyle = 'tomato'
     particles(player, 'tomato', 20)
+
+    // Check if highscore
+    if (score > Number(highScore)) {
+      highScore = Math.floor(score / 10)
+      localStorage.setItem("highScore", highScore)
+      document.getElementById("debug").innerHTML = highScore
+    }
+
     g.state = end
   }
 }
 
-function end () { }
+function end() {
+  g.key.space.press = function () {
+    location.reload()
+  };
+}
 
-function particles (element, color, amount) {
+function particles(element, color, amount) {
   g.particleEffect(
     element.x + 16, // The particle’s starting x position
     element.y + 16, // The particle’s starting y position
@@ -184,7 +208,7 @@ function particles (element, color, amount) {
   )
 }
 
-function playBubbles () {
+function playBubbles() {
   g.soundEffect(0, 0.05, 0.05, 'sine', 1, 0, 0, 1000, true, 1000)
   g.soundEffect(250, 0.05, 0.05, 'sine', 1, 0, 0.05, 1000, true, 1000)
   g.soundEffect(500, 0.05, 0.05, 'sine', 1, 0, 0.1, 1000, true, 500)
