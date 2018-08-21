@@ -9,6 +9,8 @@ var line
 var wobble
 var scoreText
 var highScore
+var startScoreText
+var startHighScoreText
 
 const w = 512
 const obstacleDamage = 1
@@ -21,7 +23,43 @@ var g = ga(w, w, setup)
 g.start()
 
 function setup() {
+  // Create different scenes
+  startScene = g.group()
   gameScene = g.group()
+  gameScene.visible = false
+
+  // Check for highscore
+  highScore = localStorage.getItem("highScore")
+  if (highScore) document.getElementById("debug").innerHTML = highScore
+  else highScore = 0
+
+  // Create Start scene
+  var title = g.text("OFF LINE", "96px Arial Black", "dodgerblue", 20, 20)
+  g.canvas.ctx.font = title.font
+  title.width = g.canvas.ctx.measureText(title.content).width
+  title.x = (w - title.width) / 2
+  startScene.addChild(title)
+
+  var helpText = g.text("press space to start", "32px Arial", "dodgerblue", 20, 20)
+  g.canvas.ctx.font = helpText.font
+  helpText.width = g.canvas.ctx.measureText(helpText.content).width
+  helpText.x = (w - helpText.width) / 2
+  helpText.y = 112 + 32
+  startScene.addChild(helpText)
+
+  startScoreText = g.text("Score: 0", "32px Arial", "dodgerblue", 20, 20)
+  g.canvas.ctx.font = startScoreText.font
+  startScoreText.width = g.canvas.ctx.measureText(startScoreText.content).width
+  startScoreText.x = (w - startScoreText.width) / 2
+  startScoreText.y = 128 + 32 + 64
+  startScene.addChild(startScoreText)
+
+  startHighScoreText = g.text("Highscore: " + highScore, "32px Arial", "dodgerblue", 20, 20)
+  g.canvas.ctx.font = startHighScoreText.font
+  startHighScoreText.width = g.canvas.ctx.measureText(startHighScoreText.content).width
+  startHighScoreText.x = (w - startHighScoreText.width) / 2
+  startHighScoreText.y = 128 + 32 + 64 + 64
+  startScene.addChild(startHighScoreText)
 
   g.backgroundColor = 'navajowhite'
 
@@ -58,7 +96,7 @@ function setup() {
   var innerBar = g.rectangle(32, 32, 'dodgerblue')
   // Group the inner and outer bars
   player = g.group(outerBar, innerBar)
-  // Set the "innerBar" as a property of the "player"
+  // Set the "innerBar" as a property of the player
   player.outer = outerBar
   player.inner = innerBar
   player.x = g.canvas.width / 2 - player.width / 2
@@ -67,13 +105,15 @@ function setup() {
   gameScene.addChild(player)
 
   // Create score text
-  scoreText = g.text("0", "32px Tahoma", "dodgerblue", 20, 20);
+  scoreText = g.text("0", "32px Tahoma", "dodgerblue", 20, 20)
+  gameScene.addChild(scoreText)
 
-  // Check for highscore
-  highScore = localStorage.getItem("highScore")
-  if (highScore) document.getElementById("debug").innerHTML = highScore
-
-  g.state = play
+  // Start the game when space is pressed
+  g.key.space.press = function () {
+    startScene.visible = false
+    gameScene.visible = true
+    g.state = play
+  }
 }
 
 function play() {
@@ -88,7 +128,6 @@ function play() {
   obstacles.forEach((o) => {
     // Move to the top again if at the bottom
     if (o.y > g.canvas.height + o.height) {
-      var w = g.canvas.width
       o.x = g.randomInt(w / 4, w - w / 4)
       o.y = g.randomInt(-o.halfHeight * 20, -o.halfHeight)
     }
@@ -173,7 +212,7 @@ function play() {
     particles(player, 'tomato', 20)
 
     // Check if highscore
-    if (score > Number(highScore)) {
+    if (Math.floor(score / 10) > Number(highScore)) {
       highScore = Math.floor(score / 10)
       localStorage.setItem("highScore", highScore)
       document.getElementById("debug").innerHTML = highScore
@@ -184,9 +223,47 @@ function play() {
 }
 
 function end() {
+  gameScene.visible = false
+
+  startScoreText.content = "Score: " + Math.floor(score / 10)
+  startHighScoreText.content = "Highscore: " + highScore
+  startScene.visible = true
+
+  // Start again when space is pressed
   g.key.space.press = function () {
-    location.reload()
-  };
+    g.state = reset
+    g.key.space.press = undefined
+  }
+}
+
+function reset() {
+  score = 0
+  speed = 4
+
+  // Reset obstacles
+  obstacles.forEach((o) => {
+    o.x = g.randomInt(w / 4, w - w / 4)
+    o.y = g.randomInt(-o.halfHeight * 20, -o.halfHeight)
+  })
+
+  // Reset potions
+  potions.forEach((p) => {
+    p.x = g.randomInt(w / 4, w - w / 4)
+    p.y = g.randomInt(-p.halfHeight * 20, -p.halfHeight)
+  })
+
+  player.x = g.canvas.width / 2 - player.width / 2
+  player.y = g.canvas.height - 2 * player.height
+  player.inner.y = 0
+  player.inner.height = 32
+  player.outer.fillStyle = "black"
+  player.inner.fillStyle = "dodgerblue"
+
+  startScene.visible = false
+  gameScene.visible = true
+
+  g.state = play
+
 }
 
 function particles(element, color, amount) {
