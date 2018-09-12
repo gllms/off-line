@@ -31,8 +31,7 @@ function setup() {
 
   // Check for highscore
   highScore = localStorage.getItem("highScore")
-  if (highScore) document.getElementById("debug").innerHTML = highScore
-  else highScore = 0
+  if (!highScore) highScore = 0
 
   // Create Start scene
   var title = g.text("OFF LINE", "bold 96px Arial", "dodgerblue", 20, 20)
@@ -62,10 +61,11 @@ function setup() {
   startHighScoreText.y = 128 + 16 + 32 + 32
   startScene.addChild(startHighScoreText)
 
-  startScene.addChild(g.text("Move around with WASD", "16px Arial Black, Arial", "slateblue", 20, 384))
+  startScene.addChild(g.text("Move around with WASD", "16px Arial Black, Arial", "slateblue", 20, 384 - 32))
+  startScene.addChild(g.text("Your score is the amount of time you spend on the line", "16px Arial Black, Arial", "slateblue", 20, 384))
   startScene.addChild(g.text("Stay on the green line or else your health will drain", "16px Arial Black, Arial", "green", 20, 384 + 32))
-  startScene.addChild(g.text("Pick up the blue squares to add to your health", "16px Arial Black, Arial", "dodgerblue", 20, 384 + 64))
   startScene.addChild(g.text("Avoid the orange squares or else your health will drain very quickly", "16px Arial", "orangered", 20, 384 + 96))
+  startScene.addChild(g.text("Pick up the blue squares to increase your health", "16px Arial Black, Arial", "dodgerblue", 20, 384 + 64))
 
   g.backgroundColor = 'navajowhite'
 
@@ -111,7 +111,7 @@ function setup() {
   gameScene.addChild(player)
 
   // Create score text
-  scoreText = g.text("0", "32px Tahoma", "dodgerblue", 20, 20)
+  scoreText = g.text("0", "bolder 32px Arial", "dodgerblue", 20, 20)
   gameScene.addChild(scoreText)
 
   // Start the game when space is pressed
@@ -125,7 +125,6 @@ function setup() {
 function play() {
   // Speed up the game gradually
   speed = speed * 1.0001
-  // document.getElementById('debug').innerHTML = JSON.stringify(speed)
 
   g.move(player)
   g.contain(player, g.stage.localBounds)
@@ -221,7 +220,6 @@ function play() {
     if (Math.floor(score / 10) > Number(highScore)) {
       highScore = Math.floor(score / 10)
       localStorage.setItem("highScore", highScore)
-      document.getElementById("debug").innerHTML = highScore
     }
 
     g.state = end
