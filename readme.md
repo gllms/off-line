@@ -1,4 +1,4 @@
-# Off-line
+# Off Line
 
 A game made for the JS13kGames coding competition.
 
