@@ -1,6 +1,7 @@
 /* eslint no-undef: 0 */
 
 var gameScene
+var startScene
 var player
 var playerHit
 var obstacles
@@ -34,32 +35,37 @@ function setup() {
   else highScore = 0
 
   // Create Start scene
-  var title = g.text("OFF LINE", "96px Arial Black", "dodgerblue", 20, 20)
+  var title = g.text("OFF LINE", "bold 96px Arial", "dodgerblue", 20, 20)
   g.canvas.ctx.font = title.font
   title.width = g.canvas.ctx.measureText(title.content).width
   title.x = (w - title.width) / 2
   startScene.addChild(title)
 
-  var helpText = g.text("press space to start", "32px Arial", "dodgerblue", 20, 20)
+  var helpText = g.text("press space to start", "bold 32px Arial", "dodgerblue", 20, 20)
   g.canvas.ctx.font = helpText.font
   helpText.width = g.canvas.ctx.measureText(helpText.content).width
   helpText.x = (w - helpText.width) / 2
-  helpText.y = 112 + 32
+  helpText.y = 112 + 16
   startScene.addChild(helpText)
 
   startScoreText = g.text("Score: 0", "32px Arial", "dodgerblue", 20, 20)
   g.canvas.ctx.font = startScoreText.font
   startScoreText.width = g.canvas.ctx.measureText(startScoreText.content).width
   startScoreText.x = (w - startScoreText.width) / 2
-  startScoreText.y = 128 + 32 + 64
+  startScoreText.y = 128 + 16 + 32
   startScene.addChild(startScoreText)
 
   startHighScoreText = g.text("Highscore: " + highScore, "32px Arial", "dodgerblue", 20, 20)
   g.canvas.ctx.font = startHighScoreText.font
   startHighScoreText.width = g.canvas.ctx.measureText(startHighScoreText.content).width
   startHighScoreText.x = (w - startHighScoreText.width) / 2
-  startHighScoreText.y = 128 + 32 + 64 + 64
+  startHighScoreText.y = 128 + 16 + 32 + 32
   startScene.addChild(startHighScoreText)
+
+  startScene.addChild(g.text("Move around with WASD", "16px Arial Black, Arial", "slateblue", 20, 384))
+  startScene.addChild(g.text("Stay on the green line or else your health will drain", "16px Arial Black, Arial", "green", 20, 384 + 32))
+  startScene.addChild(g.text("Pick up the blue squares to add to your health", "16px Arial Black, Arial", "dodgerblue", 20, 384 + 64))
+  startScene.addChild(g.text("Avoid the orange squares or else your health will drain very quickly", "16px Arial", "orangered", 20, 384 + 96))
 
   g.backgroundColor = 'navajowhite'
 
